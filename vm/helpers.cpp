@@ -285,12 +285,6 @@ namespace rubinius {
         return true;
       }
 
-      // No one waiting on it? Well, nevermind then.
-      if(!debugger_chan->has_readers_p()) {
-        std::cout << "no waiters\n";
-        return true;
-      }
-
       // If we're hitting here, clear any chance that step would be used
       // without being explicitly requested.
       state->vm()->clear_thread_step();
