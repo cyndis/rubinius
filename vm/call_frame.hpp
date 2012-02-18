@@ -56,6 +56,8 @@ namespace rubinius {
 
     Arguments* arguments;
 
+    Object*** stack_top_ptr_ptr;
+
     // Stack
     Object* stk[];
 
@@ -63,6 +65,19 @@ namespace rubinius {
 
     int ip() {
       return ip_;
+    }
+
+    Object** stack() {
+      return stk;
+    }
+
+    int stack_size() {
+      if (!stack_top_ptr_ptr)
+        return -1;
+      Object** stack_top_ptr = *stack_top_ptr_ptr;
+      Object** stack_bottom_ptr = stack();
+      int count = stack_top_ptr - stack_bottom_ptr + 1;
+      return count;
     }
 
     bool block_as_method_p() {

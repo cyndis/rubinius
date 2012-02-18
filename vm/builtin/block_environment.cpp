@@ -307,6 +307,7 @@ namespace rubinius {
     frame->flags =    invocation.flags | CallFrame::cCustomStaticScope
                                        | CallFrame::cMultipleScopes
                                        | CallFrame::cBlock;
+    frame->stack_top_ptr_ptr = NULL;
 
     // TODO: this is a quick hack to process block arguments in 1.9.
     if(!LANGUAGE_18_ENABLED(state)) {

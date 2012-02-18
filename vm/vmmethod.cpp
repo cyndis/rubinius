@@ -594,6 +594,7 @@ namespace rubinius {
       frame->dispatch_data = 0;
       frame->cm =       cm;
       frame->scope =    scope;
+      frame->stack_top_ptr_ptr = NULL;
 
 #ifdef ENABLE_LLVM
       // A negative call_count means we've disabled usage based JIT
@@ -663,6 +664,7 @@ namespace rubinius {
     frame->dispatch_data = 0;
     frame->cm =       cm;
     frame->scope =    scope;
+    frame->stack_top_ptr_ptr = NULL;
 
     // Do NOT check if we should JIT this. We NEVER want to jit a script.
 

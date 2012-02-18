@@ -396,6 +396,7 @@ Object* VMMethod::debugger_interpreter(STATE,
   // instructions.
 
   Object** stack_ptr = call_frame->stk - 1;
+  call_frame->stack_top_ptr_ptr = &stack_ptr;
 
 continue_to_run:
   try {
