@@ -263,6 +263,31 @@ namespace rubinius {
     return Tuple::from(state, 3, Fixnum::from(cf->ip()), cf->cm, scope);
   }
 
+  Object* Thread::stack(STATE) {
+    thread::SpinLock::LockGuard lg(init_lock_);
+
+    VM* vm = vm_;
+    if (!vm) return nil<Array>();
+
+    CallFrame* cf = vm->saved_call_frame()->top_ruby_frame();
+    if (cf->jitted_p())
+      return cNil;
+
+    InterpreterCallFrame* icf = reinterpret_cast<InterpreterCallFrame*>(cf);
+
+    Object** stack = icf->stack();
+
+    int stack_size = icf->stack_size();
+    if (stack_size == -1)
+      return cNil;
+
+    Array* ret = Array::create(state, 0);
+    for (int i = 0; i < stack_size; ++i)
+      ret->append(state, stack[i]);
+
+    return ret;
+  }
+
   void Thread::cleanup() {
     vm_ = NULL;
   }

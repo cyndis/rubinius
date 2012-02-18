@@ -172,6 +172,9 @@ namespace rubinius {
     // Rubinius.primitive :thread_context
     Tuple* context(STATE);
 
+    // Rubinius.primitive :thread_stack
+    Object* stack(STATE);
+
     // Rubinius.primitive :thread_join
     Object* join(STATE, GCToken gct, CallFrame* calling_environment);
 

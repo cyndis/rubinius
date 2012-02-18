@@ -56,6 +56,11 @@ class Thread
     Kernel.raise PrimitiveFailure, "Thread#unlock_locks failed"
   end
 
+  def stack
+    Rubinius.primitive :thread_stack
+    Kernel.raise PrimitiveFailure, "Thread#stack failed"
+  end
+
   class Die < Exception; end # HACK
 
   @abort_on_exception = false
